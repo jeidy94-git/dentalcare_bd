@@ -2,43 +2,50 @@
 
 Este repositorio contiene la arquitectura, modelo relacional, scripts de base de datos y documentación técnica para el proyecto **DentalCare BD**, un sistema de información diseñado para la gestión integral de una clínica odontológica.
 
+---
 
-Tecnologías Utilizadas
-SGBD: MySQL 8.0+
+## Tecnologías Utilizadas
 
-Herramientas de Diseño y Administración: MySQL Workbench, phpMyAdmin
+- **SGBD:** MySQL 8.0+ / MariaDB 10.4+
+- **Herramientas de Administración:** MySQL Workbench, phpMyAdmin
+- **Modelado:** StarUML / Diagramación Entidad-Relación
+- **Control de Versiones:** Git y GitHub
+- **Seguridad:** Cifrado de credenciales mediante algoritmo BCrypt (`$2a$10$`)
 
-Modelado: StarUML / Diagramación ER
+---
 
-Control de Versiones: Git y GitHub
+## Estructura del Repositorio
 
 
 dentalcare_bd/
 │
 ├── database/
-│   └── dentalcare_bd.sql       # Script completo con DDL (tablas) y DML (poblamiento)
+│   ├── dentalcare_bd.sql          # Script principal: DDL (creación de base y 21 tablas en MAYÚSCULAS) + DML (datos semilla)
+│   └── consultas_crud.sql         # Banco de pruebas: Operaciones CRUD (Create, Read, Update, Delete) para las 21 tablas
 │
 ├── docs/
-│   ├── README.md               # Documentación adicional
-│   └── diagrama_er.png         # Diagrama Entidad-Relación de la base de datos
+│   ├── README.md                  # Documentación técnica extendida
+│   └── diagrama_er.png            # Diagrama Entidad-Relación oficial (21 entidades normalizadas v2)
 │
-└── README.md                   # Documentación principal del proyecto
+└── README.md                      # Documentación principal del proyecto
 
 
 Descripción del Modelo Relacional
-La base de datos se encuentra totalmente normalizada hasta la Tercera Forma Normal (3FN) y cubre los siguientes módulos funcionales:
+La base de datos se encuentra normalizada hasta la Tercera Forma Normal (3FN) y está estructurada bajo la convención de nombres de tablas en MAYÚSCULAS para garantizar consistencia referencial y compatibilidad multiplataforma. Cubre los siguientes módulos funcionales:
 
-Gestión de Usuarios y Roles: Control de acceso e identidades en el sistema.
+Gestión de Seguridad, Usuarios y Roles: Control de acceso mediante roles (ROL, PERMISO, ROL_PERMISO, USUARIO, PASSWORD_RESET).
 
-Pacientes e Historias Clínicas: Registro detallado de antecedentes médicos, alergias y evolución del paciente.
+Administración de Personal y Especialistas: Registro de colaboradores, especialidades odontológicas y asignación de turnos (PERSONAL, ESPECIALISTA, HORARIO).
 
-Citas y Agenda: Programación y seguimiento de la disponibilidad odontológica.
+Pacientes e Historias Clínicas: Registro clínico de pacientes, antecedentes patológicos y apertura de historias (PACIENTE, HISTORIA_CLINICA).
 
-Tratamientos y Procedimientos: Catálogo de servicios odontológicos brindados.
+Atención y Odontograma Digital: Mapeo anatómico dental y registro de hallazgos por pieza (DIENTE, ODONTOGRAMA).
 
-Facturación y Pagos: Registro financiero de procedimientos y transacciones.
+Agenda y Actos Clínicos: Programación de citas y ejecución de consultas vinculadas a tratamientos del catálogo (CITA, CONSULTA, SERVICIO, CONSULTA_SERVICIO).
 
-Novedades Operativas: Reporte de mantenimiento e incidentes en equipos de la clínica.
+Facturación y Tesorería: Registro de ventas, planes de cuotas, saldos calculados y amortizaciones por medios de pago (VENTA, PAGO_VENTA, METODO_PAGO).
+
+Auditoría y Soporte Operativo: Monitoreo de eventos y registro de incidencias técnicas en consultorios (LOG_AUDITORIA, NOVEDAD_OPERATIVA).
 
 
 Instrucciones de Instalación e Importación
@@ -49,8 +56,19 @@ Clonar el repositorio: `git clone https://github.com/jeidy94-git/dentalcare_bd.g
 
 Importar la base de datos:
 
-Vía MySQL CLI: mysql -u tu_usuario -p < database/dentalcare_bd.sql
-Vía phpMyAdmin / MySQL Workbench:
+Importación de la Base de Datos (Estructura + Datos Semilla)
+El script crea automáticamente el esquema dentalcare_bd y define las 21 tablas relacionales junto a sus registros iniciales.
+
+Vía Terminal / Consola: mysql -u root -p < database/dentalcare_bd.sql
+Vía phpMyAdmin / Workbench:
+Abrir la pestaña Importar, seleccionar database/dentalcare_bd.sql y ejecutar (no requiere seleccionar una base de datos previa).
+
+Ejecución del Banco de Consultas CRUD
+Una vez importada la base de datos, ejecutar de forma independiente el archivo de pruebas:
+
+Vía Terminal / Consola: mysql -u root -p dentalcare_bd < database/consultas_crud.sql
+Vía phpMyAdmin / Workbench:
+Abrir una pestaña SQL sobre la base dentalcare_bd, cargar el archivo database/consultas_crud.sql y ejecutar.
 
 Crea la base de datos ejecutando CREATE DATABASE dentalcare_bd;.
 
@@ -61,7 +79,8 @@ Selecciona el archivo database/dentalcare_bd.sql.
 
 Diagrama Entidad-Relación (ER)
 Puedes consultar el diagrama gráfico del modelo relacional en la carpeta docs/ o visualizarlo a continuación:
-![Diagrama Entidad Relación](docs/diagrama_er.png)
+![Uploading MODELO BD DENTAL CARE.png…]()
+
 
 
 ✒️ Autora
