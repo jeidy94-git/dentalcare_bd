@@ -79,7 +79,8 @@ Selecciona el archivo database/dentalcare_bd.sql.
 
 Diagrama Entidad-Relación (ER)
 Puedes consultar el diagrama gráfico del modelo relacional en la carpeta docs/ o visualizarlo a continuación:
-![Uploading MODELO BD DENTAL CARE.png…]()
+![Diagrama Entidad-Relación](docs/diagrama_er.png)
+
 
 
 
